@@ -1,0 +1,1171 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Blog Django Girls | Um mundo de histórias</title>
+
+    <style>
+
+        /* CONFIGURAÇÕES GERAIS */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #faf7ff;
+            color: #444;
+        }
+
+        /* CABEÇALHO */
+
+        header {
+            background: linear-gradient(135deg, #b58ae8, #ed9ecb);
+            text-align: center;
+            padding: 45px 20px;
+            color: white;
+        }
+
+        header h1 {
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+
+        header p {
+            font-size: 15px;
+        }
+
+        /* MENU */
+
+        nav {
+            background: white;
+            padding: 18px 10px;
+            text-align: center;
+            box-shadow: 0 3px 10px #0000000d;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #9564c5;
+            margin: 0 12px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #e58bb9;
+        }
+
+        /* CONTEÚDO PRINCIPAL */
+
+        main {
+            max-width: 950px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .boas-vindas {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .boas-vindas h2 {
+            color: #9564c5;
+            margin-bottom: 14px;
+        }
+
+        .boas-vindas p {
+            color: #777;
+            line-height: 1.8;
+        }
+
+        .titulo-seccao {
+            text-align: center;
+            color: #9564c5;
+            margin-bottom: 12px;
+        }
+
+        .descricao-seccao {
+            text-align: center;
+            color: #777;
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+
+        /* PUBLICAÇÕES */
+
+        .post {
+            background: white;
+            padding: 27px;
+            margin-bottom: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px #0000000c;
+            transition: 0.3s;
+        }
+
+        .post:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 7px 18px #00000012;
+        }
+
+        .data {
+            color: #bd85cf;
+            font-size: 13px;
+            margin-bottom: 13px;
+        }
+
+        .post h3 {
+            color: #9564c5;
+            margin-bottom: 15px;
+        }
+
+        .post p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 18px;
+        }
+
+        .botao {
+            display: inline-block;
+            background: #b58ae8;
+            color: white;
+            text-decoration: none;
+            padding: 11px 22px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .botao:hover {
+            background: #9564c5;
+        }
+
+        /* CLUBE DE LEITURA */
+
+        .clube-leitura {
+            background: linear-gradient(135deg, #f3e8ff, #ffeaf4);
+            padding: 35px 25px;
+            border-radius: 22px;
+            margin-top: 55px;
+        }
+
+        .livro {
+            display: flex;
+            gap: 25px;
+            background: white;
+            padding: 25px;
+            border-radius: 17px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px #0000000c;
+        }
+
+        .capa-livro {
+            width: 140px;
+            min-width: 140px;
+            height: 195px;
+            border-radius: 10px;
+            object-fit: cover;
+            background: #e9d9f8;
+        }
+
+        .info-livro {
+            flex: 1;
+        }
+
+        .info-livro h3 {
+            color: #9564c5;
+            margin-bottom: 12px;
+        }
+
+        .info-livro p {
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+
+        .genero {
+            display: inline-block;
+            background: #f2e6ff;
+            color: #9564c5;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        /* FORMULÁRIOS */
+
+        .formulario {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+        }
+
+        .formulario h3 {
+            color: #9564c5;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            color: #666;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #e4d5f5;
+            border-radius: 10px;
+            margin-bottom: 18px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            outline: none;
+            background: white;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: #b58ae8;
+            box-shadow: 0 0 0 2px #b58ae822;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        /* OPINIÕES DOS LIVROS */
+
+        .opiniao-livro {
+            background: white;
+            padding: 20px;
+            border-radius: 14px;
+            margin-bottom: 15px;
+            border-left: 4px solid #c69be8;
+        }
+
+        .opiniao-livro h4 {
+            color: #9564c5;
+            margin-bottom: 9px;
+        }
+
+        .opiniao-livro p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .nome-livro-comentario {
+            color: #bd85cf;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .separador-livros {
+            margin-top: 35px;
+        }
+
+        /* CANTINHO DOS LEITORES */
+
+        .cantinho {
+            background: linear-gradient(135deg, #f0e4ff, #ffeaf4);
+            padding: 35px 25px;
+            border-radius: 22px;
+            margin-top: 55px;
+        }
+
+        .comentario {
+            background: white;
+            padding: 19px;
+            border-radius: 13px;
+            margin-bottom: 15px;
+            border-left: 4px solid #d7b4f3;
+        }
+
+        .comentario h4 {
+            color: #9564c5;
+            margin-bottom: 9px;
+        }
+
+        .comentario p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .leitor-destaque {
+            text-align: center;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 25px;
+        }
+
+        .leitor-destaque h3 {
+            color: #9564c5;
+            margin-bottom: 12px;
+        }
+
+        .leitor-destaque p {
+            color: #777;
+            line-height: 1.7;
+        }
+
+        /* SOBRE */
+
+        .sobre {
+            text-align: center;
+            margin: 55px 0;
+            padding: 30px;
+            background: white;
+            border-radius: 18px;
+        }
+
+        .sobre h2 {
+            color: #9564c5;
+            margin-bottom: 15px;
+        }
+
+        .sobre p {
+            color: #777;
+            line-height: 1.8;
+        }
+
+        /* RODAPÉ */
+
+        footer {
+            background: #9564c5;
+            color: white;
+            text-align: center;
+            padding: 28px 15px;
+            margin-top: 55px;
+        }
+
+        footer p {
+            margin: 7px;
+            font-size: 14px;
+        }
+
+        /* RESPONSIVIDADE */
+
+        @media (max-width: 600px) {
+
+            header h1 {
+                font-size: 27px;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 7px;
+                font-size: 13px;
+            }
+
+            .post {
+                padding: 20px;
+            }
+
+            .clube-leitura,
+            .cantinho {
+                padding: 22px 15px;
+            }
+
+            .livro {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .info-livro {
+                width: 100%;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- CABEÇALHO -->
+
+    <header>
+        <h1>Blog Django Girls 🌸</h1>
+
+        <p>
+            Um mundo de histórias, ideias, inspiração e amizade!
+        </p>
+    </header>
+
+
+    <!-- MENU DE NAVEGAÇÃO -->
+
+    <nav>
+        <a href="#inicio">Início</a>
+
+        <a href="#publicacoes">Publicações</a>
+
+        <a href="#clube">Clube de Leitura 📚</a>
+
+        <a href="#leitores">Cantinho dos Leitores 💌</a>
+
+        <a href="#sobre">Sobre</a>
+    </nav>
+
+
+    <main>
+
+        <!-- BOAS-VINDAS -->
+
+        <section class="boas-vindas" id="inicio">
+
+            <h2>Olá, querida leitora! 💕</h2>
+
+            <p>
+                Sê muito bem-vinda ao nosso cantinho!
+
+                Aqui podes ler histórias, descobrir novas ideias,
+                partilhar pensamentos, conversar sobre livros
+                e conhecer pessoas que também gostam de aprender.
+
+                Este espaço também é teu!
+            </p>
+
+        </section>
+
+
+        <!-- PUBLICAÇÕES -->
+
+        <section id="publicacoes">
+
+            <h2 class="titulo-seccao">
+                ✨ Últimas Publicações
+            </h2>
+
+            <p class="descricao-seccao">
+                Pequenas histórias, pensamentos e momentos para partilhar.
+            </p>
+
+
+            <article class="post">
+
+                <div class="data">
+                    Publicado em: 14.06.2014 às 12:14
+                </div>
+
+                <h3>Meu primeiro post ✨</h3>
+
+                <p>
+                    Aenean eu leo quam. Pellentesque ornare sem lacinia
+                    quam venenatis vestibulum. Donec id elit non mi porta
+                    gravida at eget metus. Fusce dapibus, tellus ac cursus
+                    commodo, tortor mauris condimentum nibh.
+                </p>
+
+                <a href="#leitores" class="botao">
+                    Partilhar opinião →
+                </a>
+
+            </article>
+
+
+            <article class="post">
+
+                <div class="data">
+                    Publicado em: 14.06.2014 às 12:14
+                </div>
+
+                <h3>Meu segundo post 💜</h3>
+
+                <p>
+                    Aenean eu leo quam. Pellentesque ornare sem lacinia
+                    quam venenatis vestibulum. Donec id elit non mi porta
+                    gravida at eget metus. Fusce dapibus, tellus ac cursus
+                    commodo, tortor mauris condimentum nibh.
+                </p>
+
+                <a href="#leitores" class="botao">
+                    Partilhar opinião →
+                </a>
+
+            </article>
+
+        </section>
+
+
+
+        <!-- CLUBE DE LEITURA -->
+
+        <section class="clube-leitura" id="clube">
+
+            <h2 class="titulo-seccao">
+                📚 Clube de Leitura
+            </h2>
+
+            <p class="descricao-seccao">
+                Cada livro tem uma história.
+                Cada leitor tem uma interpretação.
+                Vamos conversar sobre livros?
+            </p>
+
+
+            <!-- PRIMEIRO LIVRO -->
+
+            <article class="livro">
+
+                <img
+                    class="capa-livro"
+                    src="https://covers.openlibrary.org/b/isbn/9780156012195-L.jpg"
+                    alt="Capa do livro O Principezinho"
+                >
+
+                <div class="info-livro">
+
+                    <h3>O Principezinho ✨</h3>
+
+                    <p>
+                        <strong>Autor:</strong>
+                        Antoine de Saint-Exupéry
+                    </p>
+
+                    <p>
+                        <strong>Género:</strong>
+                        Literatura, fantasia e reflexão
+                    </p>
+
+                    <span class="genero">
+                        Amizade • Amor • Reflexão
+                    </span>
+
+                    <br><br>
+
+                    <p>
+                        O livro conta a história de um pequeno príncipe
+                        que viaja por diferentes planetas e conhece
+                        várias personagens.
+
+                        Durante a sua viagem, aprende importantes
+                        lições sobre amizade, amor, respeito,
+                        solidão e o verdadeiro valor das coisas.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <!-- SEGUNDO LIVRO -->
+
+            <article class="livro">
+
+                <img
+                    class="capa-livro"
+                    src="https://covers.openlibrary.org/b/isbn/9780062315007-L.jpg"
+                    alt="Capa do livro O Alquimista"
+                >
+
+                <div class="info-livro">
+
+                    <h3>O Alquimista 🌙</h3>
+
+                    <p>
+                        <strong>Autor:</strong>
+                        Paulo Coelho
+                    </p>
+
+                    <p>
+                        <strong>Género:</strong>
+                        Romance e aventura
+                    </p>
+
+                    <span class="genero">
+                        Sonhos • Coragem • Descoberta
+                    </span>
+
+                    <br><br>
+
+                    <p>
+                        A história acompanha Santiago, um jovem pastor
+                        que decide partir numa viagem em busca de um
+                        tesouro.
+
+                        Pelo caminho, descobre que a viagem é também
+                        uma oportunidade para conhecer a si próprio,
+                        aprender a seguir os seus sonhos e compreender
+                        o significado da vida.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <!-- FORMULÁRIO PARA COMENTAR LIVROS -->
+
+            <div class="formulario">
+
+                <h3>💭 Partilha a tua opinião sobre um livro</h3>
+
+                <form id="formLivro">
+
+                    <label for="livroSelecionado">
+                        Escolhe o livro:
+                    </label>
+
+                    <select id="livroSelecionado" required>
+
+                        <option value="">
+                            Seleciona um livro
+                        </option>
+
+                        <option value="O Principezinho">
+                            O Principezinho
+                        </option>
+
+                        <option value="O Alquimista">
+                            O Alquimista
+                        </option>
+
+                    </select>
+
+
+                    <label for="nomeLeitor">
+                        O teu nome:
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nomeLeitor"
+                        placeholder="Escreve o teu nome"
+                        required
+                    >
+
+
+                    <label for="opiniao">
+                        O que achaste deste livro?
+                    </label>
+
+                    <textarea
+                        id="opiniao"
+                        placeholder="Conta-nos o que pensas sobre esta história..."
+                        required
+                    ></textarea>
+
+
+                    <button type="submit" class="botao">
+                        Publicar opinião 💜
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- OPINIÕES DOS LEITORES -->
+
+            <div class="separador-livros">
+
+                <h3 class="titulo-seccao">
+                    💬 Opiniões dos leitores
+                </h3>
+
+                <div id="listaOpinioes">
+
+                    <div class="opiniao-livro">
+
+                        <div class="nome-livro-comentario">
+                            Livro: O Principezinho
+                        </div>
+
+                        <h4>Ana Silva 🌸</h4>
+
+                        <p>
+                            É um livro muito bonito!
+                            Ensina-nos que a amizade e o amor
+                            são muito importantes.
+                        </p>
+
+                    </div>
+
+
+                    <div class="opiniao-livro">
+
+                        <div class="nome-livro-comentario">
+                            Livro: O Alquimista
+                        </div>
+
+                        <h4>Maria Costa 💕</h4>
+
+                        <p>
+                            Gostei muito da mensagem sobre
+                            nunca desistirmos dos nossos sonhos.
+                            É uma história inspiradora!
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- CANTINHO DOS LEITORES -->
+
+        <section class="cantinho" id="leitores">
+
+            <h2 class="titulo-seccao">
+                💌 Cantinho dos Leitores
+            </h2>
+
+            <p class="descricao-seccao">
+                Este espaço também é teu!
+                Partilha pensamentos, ideias e experiências.
+                Queremos conhecer a tua opinião!
+            </p>
+
+
+            <!-- FORMULÁRIO DE MENSAGENS -->
+
+            <div class="formulario">
+
+                <h3>🌷 Deixa a tua mensagem</h3>
+
+                <form id="formComentario">
+
+                    <label for="nome">
+                        O teu nome:
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nome"
+                        placeholder="Como te podemos chamar?"
+                        required
+                    >
+
+
+                    <label for="mensagem">
+                        A tua mensagem:
+                    </label>
+
+                    <textarea
+                        id="mensagem"
+                        placeholder="Escreve aqui a tua opinião..."
+                        required
+                    ></textarea>
+
+
+                    <button type="submit" class="botao">
+                        Publicar mensagem 💜
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- MENSAGENS DOS LEITORES -->
+
+            <div class="mensagens">
+
+                <h3 class="titulo-seccao">
+                    O que dizem os nossos leitores 💬
+                </h3>
+
+
+                <div id="listaComentarios">
+
+                    <div class="comentario">
+
+                        <h4>Ana Silva 🌸</h4>
+
+                        <p>
+                            Adorei conhecer este blog!
+                            Espero encontrar muitas publicações interessantes.
+                        </p>
+
+                    </div>
+
+
+                    <div class="comentario">
+
+                        <h4>Maria Costa 💕</h4>
+
+                        <p>
+                            Um espaço muito bonito e acolhedor.
+                            Continuem com este excelente trabalho!
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- MENSAGEM DE DESTAQUE -->
+
+            <div class="leitor-destaque">
+
+                <h3>♡ Uma mensagem para ti ♡</h3>
+
+                <p>
+                    "Cada pessoa tem uma história para contar.
+                    Nunca tenhas medo de partilhar a tua.
+                    A tua opinião também importa!"
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- SUGESTÃO DE LIVROS -->
+
+        <section class="sobre" id="sugestoes">
+
+            <h2>📖 Sugere um livro!</h2>
+
+            <p>
+                Conheces algum livro interessante que gostarias
+                de ver no nosso Clube de Leitura?
+
+                Envia a tua sugestão e ajuda-nos a descobrir
+                novas histórias!
+            </p>
+
+            <br>
+
+            <form id="formSugestao">
+
+                <label for="tituloSugestao">
+                    Título do livro:
+                </label>
+
+                <input
+                    type="text"
+                    id="tituloSugestao"
+                    placeholder="Nome do livro"
+                    required
+                >
+
+                <label for="autorSugestao">
+                    Autor:
+                </label>
+
+                <input
+                    type="text"
+                    id="autorSugestao"
+                    placeholder="Nome do autor"
+                    required
+                >
+
+                <label for="motivoSugestao">
+                    Por que recomendas este livro?
+                </label>
+
+                <textarea
+                    id="motivoSugestao"
+                    placeholder="Conta-nos um pouco..."
+                    required
+                ></textarea>
+
+                <button type="submit" class="botao">
+                    Enviar sugestão 📚
+                </button>
+
+            </form>
+
+            <div id="listaSugestoes"></div>
+
+        </section>
+
+
+
+        <!-- SOBRE O BLOG -->
+
+        <section class="sobre" id="sobre">
+
+            <h2>Sobre o nosso blog 💜</h2>
+
+            <p>
+                O Blog Django Girls é um espaço de partilha,
+                criatividade, aprendizagem e leitura.
+
+                Queremos criar uma pequena comunidade onde
+                todos possam ler, escrever, trocar experiências,
+                descobrir livros e fazer novas amizades.
+
+                Porque uma boa história fica ainda melhor
+                quando é partilhada!
+            </p>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- RODAPÉ -->
+
+    <footer>
+
+        <p>♡ Blog Django Girls © 2026</p>
+
+        <p>
+            Feito com carinho para todos os leitores 🌸
+        </p>
+
+        <p>
+            Ler, aprender, partilhar e inspirar!
+        </p>
+
+    </footer>
+
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+
+        /* FORMULÁRIO DO CLUBE DE LEITURA */
+
+        const formLivro = document.getElementById("formLivro");
+
+        const listaOpinioes = document.getElementById("listaOpinioes");
+
+
+        formLivro.addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const livro = document.getElementById("livroSelecionado").value;
+
+            const nome = document.getElementById("nomeLeitor").value.trim();
+
+            const opiniao = document.getElementById("opiniao").value.trim();
+
+
+            if (livro === "" || nome === "" || opiniao === "") {
+
+                alert("Preenche todos os campos!");
+
+                return;
+
+            }
+
+
+            // Criar o cartão da opinião
+
+            const novaOpiniao = document.createElement("div");
+
+            novaOpiniao.className = "opiniao-livro";
+
+
+            // Nome do livro
+
+            const tituloLivro = document.createElement("div");
+
+            tituloLivro.className = "nome-livro-comentario";
+
+            tituloLivro.textContent = "Livro: " + livro;
+
+
+            // Nome do leitor
+
+            const titulo = document.createElement("h4");
+
+            titulo.textContent = nome + " 💜";
+
+
+            // Opinião
+
+            const texto = document.createElement("p");
+
+            texto.textContent = opiniao;
+
+
+            // Organizar os elementos
+
+            novaOpiniao.appendChild(tituloLivro);
+
+            novaOpiniao.appendChild(titulo);
+
+            novaOpiniao.appendChild(texto);
+
+
+            // Adicionar à página
+
+            listaOpinioes.appendChild(novaOpiniao);
+
+
+            // Limpar formulário
+
+            formLivro.reset();
+
+
+            alert("A tua opinião foi publicada! Obrigada por participar. 🌸");
+
+        });
+
+
+
+        /* FORMULÁRIO DO CANTINHO DOS LEITORES */
+
+        const formulario = document.getElementById("formComentario");
+
+        const listaComentarios = document.getElementById("listaComentarios");
+
+
+        formulario.addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+
+            const nome = document.getElementById("nome").value.trim();
+
+            const mensagem = document.getElementById("mensagem").value.trim();
+
+
+            if (nome === "" || mensagem === "") {
+
+                alert("Por favor, preenche todos os campos!");
+
+                return;
+
+            }
+
+
+            // Criar comentário
+
+            const comentario = document.createElement("div");
+
+            comentario.className = "comentario";
+
+
+            // Nome
+
+            const titulo = document.createElement("h4");
+
+            titulo.textContent = nome + " 💜";
+
+
+            // Mensagem
+
+            const texto = document.createElement("p");
+
+            texto.textContent = mensagem;
+
+
+            comentario.appendChild(titulo);
+
+            comentario.appendChild(texto);
+
+
+            // Mostrar comentário
+
+            listaComentarios.appendChild(comentario);
+
+
+            // Limpar formulário
+
+            formulario.reset();
+
+
+            alert("A tua mensagem foi publicada! Obrigada por participar. 🌸");
+
+        });
+
+
+
+        /* FORMULÁRIO DE SUGESTÃO DE LIVROS */
+
+        const formSugestao = document.getElementById("formSugestao");
+
+        const listaSugestoes = document.getElementById("listaSugestoes");
+
+
+        formSugestao.addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+
+            const titulo = document.getElementById("tituloSugestao").value.trim();
+
+            const autor = document.getElementById("autorSugestao").value.trim();
+
+            const motivo = document.getElementById("motivoSugestao").value.trim();
+
+
+            if (titulo === "" || autor === "" || motivo === "") {
+
+                alert("Preenche todos os campos!");
+
+                return;
+
+            }
+
+
+            // Criar cartão da sugestão
+
+            const sugestao = document.createElement("div");
+
+            sugestao.className = "comentario";
+
+
+            const nomeLivro = document.createElement("h4");
+
+            nomeLivro.textContent = titulo + " 📚";
+
+
+            const nomeAutor = document.createElement("p");
+
+            nomeAutor.textContent = "Autor: " + autor;
+
+
+            const descricao = document.createElement("p");
+
+            descricao.textContent = motivo;
+
+
+            sugestao.appendChild(nomeLivro);
+
+            sugestao.appendChild(nomeAutor);
+
+            sugestao.appendChild(descricao);
+
+
+            listaSugestoes.appendChild(sugestao);
+
+
+            formSugestao.reset();
+
+
+            alert("A tua sugestão foi enviada! Obrigada. 💜");
+
+        });
+
+
+    </script>
+
+</body>
+</html>
