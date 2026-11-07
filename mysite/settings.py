@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-7p*hobr+h@(cmm9)uk^mcg*fkp=z3w3_1e4md)9rp=ks%b91xj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
+ALLOWED_HOSTS = ['literatura-m9ktwty.onwolke.app', 'localhost', '127.0.0.1']
 
 
 # Application definition
